@@ -1,0 +1,29 @@
+# Build
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install
+
+COPY . .
+RUN yarn build
+
+# Production
+FROM node:18-alpine AS production
+
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY package.json .
+COPY yarn.lock .
+COPY ormconfig.js .
+
+RUN yarn install --production
+
+COPY --from=build /app/dist ./dist
+
+EXPOSE 5000
+
+CMD ["yarn", "start:prod"]

@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.body {
+  @apply bg-brand-background;
+  font-family: 'Roboto', 'Helvetica', 'Helvetica Neue', 'Nunito Sans', sans-serif;
+}
+
+@layer components {
+  .card {
+    @apply bg-white p-12 rounded-md;
+  }
+  .btn {
+    @apply py-2 px-4 bg-red-primary text-white rounded-md hover:bg-red-hover transition duration-200;
+  }
+  .input {
+    @apply border rounded-md p-2 w-full outline-none ring-offset-red-primary focus:ring-1;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 18rem;
+  height: 100%;
+  background-image: url('../assets/sidemenu-bg.jpg');
+  z-index: 50;
+  transition: left 0.3s ease;
+}
+
+.sidebar.show {
+  left: 0;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    left: 0;
+    position: fixed;
+  }
+}
